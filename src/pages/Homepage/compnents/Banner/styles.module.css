@@ -1,0 +1,12 @@
+.banner {
+    position: relative;
+}
+.gradient {
+    position: absolute;
+    height: 250px;
+    width: 100%;
+    bottom: 0;
+    z-index: 20;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(225,227,228,1) 100%);
+}
