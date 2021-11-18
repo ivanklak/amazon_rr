@@ -10,11 +10,6 @@ const Homepage = () => (
     <div className={styles.homepage}>
         <Banner/>
         <ProductFeed />
-        <h1>blackblackvla</h1>
-        <h1>blackblackvla</h1>
-        <h1>blackblackvla</h1>
-        <h1>blackblackvla</h1>
-        <h1>blackblackvla</h1>
     </div>
 );
 
