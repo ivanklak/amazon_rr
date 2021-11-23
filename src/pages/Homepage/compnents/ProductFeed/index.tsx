@@ -1,10 +1,11 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import {getProducts} from "../../thunks";
+import {getCategories, getProducts} from "../../thunks";
 import selector from "../../selectors";
 import Product from "../Product";
 import Card from "../Card";
+import Categories from "../Categories";
 
 import styles from "./styles.module.css";
 
@@ -17,14 +18,23 @@ const ProductFeed = () => {
 
     useEffect(() => {
         dispatch(getProducts());
+        dispatch(getCategories());
     }, []);
 
     return (
         <div className={styles.products}>
-            {firstProducts.map(item => (
-                <Product key={item.id} product={item}/>
-            ))}
+            <div className={styles.productsItems}>
+                {firstProducts.map(item => (
+                    <Product key={item.id} product={item}/>
+                ))}
+            </div>
             <Card cardProducts={cardProducts}/>
+            <div className={styles.productsItems}>
+                <Categories />
+                {cardProducts.map(item => (
+                    <Product key={item.id} product={item}/>
+                ))}
+            </div>
         </div>
     );
 };

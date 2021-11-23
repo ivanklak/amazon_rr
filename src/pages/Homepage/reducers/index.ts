@@ -3,12 +3,14 @@ import {IProduct} from "../types";
 
 interface IProductFeedState {
     products: Array<IProduct>;
+    categories: Array<string>;
     isLoading: boolean;
     error: string | null;
 }
 
 export const initialState: IProductFeedState = {
     products: [],
+    categories: [],
     isLoading: false,
     error: null
 };
@@ -35,7 +37,28 @@ const productsReducer = (state = initialState, action: ProductsAction): IProduct
                 isLoading: false
             };
         }
-        default: return state;
+        case ProductsActionTypes.GET_CATEGORIES_REQUEST: {
+            return {
+                ...state,
+                isLoading: true
+            };
+        }
+        case ProductsActionTypes.GET_CATEGORIES_SUCCESS: {
+            return {
+                ...state,
+                categories: action.payload,
+                isLoading: false
+            };
+        }
+        case ProductsActionTypes.GET_CATEGORIES_FAILURE: {
+            return {
+                ...state,
+                error: action.payload,
+                isLoading: false
+            };
+        }
+        default:
+            return state;
     }
 };
 

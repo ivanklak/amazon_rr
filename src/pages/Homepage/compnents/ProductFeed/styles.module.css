@@ -7,6 +7,15 @@
     top: 230px;
     z-index: 30;
 }
+.productsItems {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+}
 /*@media screen and (max-width: 1410px){*/
 /*    .products {*/
 /*        top: 200px;*/
