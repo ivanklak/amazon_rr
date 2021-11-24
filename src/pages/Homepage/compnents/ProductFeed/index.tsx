@@ -6,6 +6,7 @@ import selector from "../../selectors";
 import Product from "../Product";
 import Card from "../Card";
 import Categories from "../Categories";
+import SignIn from "../SignIn";
 
 import styles from "./styles.module.css";
 
@@ -13,7 +14,7 @@ const ProductFeed = () => {
     const {products} = useSelector(selector);
     const dispatch = useDispatch();
 
-    const firstProducts = products.slice(0, 8);
+    const firstProducts = products.slice(0, 7);
     const cardProducts = products.slice(9);
 
     useEffect(() => {
@@ -27,6 +28,7 @@ const ProductFeed = () => {
                 {firstProducts.map(item => (
                     <Product key={item.id} product={item}/>
                 ))}
+                <SignIn />
             </div>
             <Card cardProducts={cardProducts}/>
             <div className={styles.productsItems}>
