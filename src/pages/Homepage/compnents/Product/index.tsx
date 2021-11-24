@@ -1,4 +1,5 @@
 import React, {FC} from "react";
+import {NavLink} from 'react-router-dom';
 
 import {IProduct} from "../../types";
 
@@ -14,10 +15,10 @@ const Product: FC<IProductProps> = ({product}) => {
         if (item.length > 32) {
             if (item[31] !== " ") {
                 const arr = [];
-                
+
                 for (let i = 31; i < item.length; i++) {
                     const currentLetter = item[i];
-                    
+
                     if (currentLetter === " ") {
                         arr.push(currentLetter);
                         break;
@@ -25,7 +26,7 @@ const Product: FC<IProductProps> = ({product}) => {
                     arr.push(currentLetter);
                 }
                 const endItem = arr.join("");
-                const startItem = item.slice(0 ,31);
+                const startItem = item.slice(0, 31);
 
                 return startItem + endItem + "...";
             }
@@ -37,18 +38,18 @@ const Product: FC<IProductProps> = ({product}) => {
     };
 
     return (
-            <div className={styles.product}>
-                <h3>
-                    {shortTitle(product.title)}
-                </h3>
-                <div className={styles.productDescription}>
-                    <div className={styles.imageField}>
-                        <img className={styles.productImage} src={product.image} alt={product.title} />
-                    </div>
+        <div className={styles.product}>
+            <h3>{shortTitle(product.title)}</h3>
+            <div className={styles.productDescription}>
+                <div className={styles.imageField}>
+                    <NavLink to={`/product/${product.id}`}>
+                        <img className={styles.productImage} src={product.image} alt={product.title}/>
+                    </NavLink>
                 </div>
-                <div className={styles.productPrice}>{product.price}$</div>
             </div>
-        );
+            <div className={styles.productPrice}>{product.price}$</div>
+        </div>
+    );
 
 };
 
