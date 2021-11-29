@@ -8,8 +8,8 @@ import reportWebVitals from './reportWebVitals';
 import store from "./app/redux-store";
 
 import './index.css';
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./Auth/Login";
+import Register from "./Auth/Register";
 
 ReactDOM.render(
     <BrowserRouter>
