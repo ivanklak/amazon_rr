@@ -185,6 +185,60 @@
     outline: 1px solid white;
 }
 
+.modal {
+    position: absolute;
+    background-color: white;
+    color: black;
+    top: 60px;
+    right: 60px;
+    z-index: 50;
+    height: 160px;
+    width: 460px;
+    border-radius: 3px;
+    border: 1px solid #bbb;
+}
+
+.modalContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 120px 0 120px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 16px;
+}
+
+.modalBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px 0 11px;
+    width: 100%;
+    height: 33px;
+    background-color: #f3cf72;
+    cursor: pointer;
+    border: 1px solid;
+    border-color: #c89411 #b0820f #99710d;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.modalBtn:hover {
+    background-color: #ecc14f;
+}
+
+.newCustomer {
+    font-size: 11px;
+    margin: 7px 0 9px 0;
+    color: #333;
+    text-decoration: none;
+}
+
+.linkToLogin {
+    text-decoration: none;
+    color: #05a;
+}
+
 @media screen and (max-width: 1260px) {
     .categories {
         font-size: 10px;

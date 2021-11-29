@@ -1,15 +1,25 @@
-import React from "react";
+import React, {useRef, useState} from "react";
 import {ChevronDownIcon, MenuIcon, SearchIcon, ShoppingCartIcon} from "@heroicons/react/outline";
 import {useHistory} from "react-router-dom";
 
 import logo from '../../images/amazon_PNG11.png';
+import Modal from "../Modal";
 
 import styles from './styles.module.css';
 
 const Header = () => {
     const history = useHistory();
+    const accountRef = useRef(null);
+    const [accountSt, setAccountSt] = useState(null as any);
+    const [open, setOpen] = useState(false);
     const onLogoClick = () => {
         history.push('/');
+    };
+
+    console.log(accountSt);
+
+    const openPortal = () => {
+        setOpen(!open);
     };
 
     return (
@@ -26,11 +36,20 @@ const Header = () => {
                         <SearchIcon className={styles.searchIcon}/>
                     </div>
                 </div>
-                <div className={styles.rightSide}>
-                    <div className={styles.rightSideItem}>
+                <div ref={
+                    (current: any) => {
+                        accountRef.current = current;
+                        setAccountSt(accountRef.current);
+                    }} className={styles.rightSide}>
+                    <div onClick={openPortal} className={styles.rightSideItem}>
                         <p>Hi Ivan</p>
                         <p>Account & Lists</p>
                     </div>
+                    <Modal
+                        message="Sign in"
+                        isOpen={open}
+                        accountRef={accountRef}
+                    />
                     <div className={styles.rightSideItem}>
                         <div className={styles.returns}>
                             <p>Returns</p>
