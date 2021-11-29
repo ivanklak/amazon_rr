@@ -48,6 +48,7 @@ const Header = () => {
                     <Modal
                         message="Sign in"
                         isOpen={open}
+                        openPortal={openPortal}
                         accountRef={accountRef}
                     />
                     <div className={styles.rightSideItem}>

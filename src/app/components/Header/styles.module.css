@@ -192,10 +192,10 @@
     top: 60px;
     right: 60px;
     z-index: 50;
-    height: 160px;
-    width: 460px;
+    width: 420px;
     border-radius: 3px;
     border: 1px solid #bbb;
+    padding: 0 20px 10px 20px;
 }
 
 .modalContainer {
@@ -237,6 +237,41 @@
 .linkToLogin {
     text-decoration: none;
     color: #05a;
+}
+
+.modalBottomContainer {
+    display: flex;
+}
+
+.modalBottomContainer div {
+    flex: 1;
+}
+
+.modalBottomContainer div h4 {
+    margin: 0 0 15px 0;
+}
+
+.bottomLeft {
+    border-right: 1px solid #eee;
+}
+
+.bottomRight > div {
+    padding-left: 20px;
+}
+
+.yourOptions {
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+}
+
+.yourOptions p {
+    margin: 0.5rem 0;
+    cursor: pointer;
+}
+
+.yourOptions p:hover {
+    color: #ff9901;
 }
 
 @media screen and (max-width: 1260px) {
