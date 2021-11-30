@@ -1,21 +1,38 @@
 import React, {FC, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
+import {auth} from "../../firebase";
 import Logo from "../../app/images/1600px-Amazon_logo.svg.png";
 
 import styles from "./styles.module.css";
 
 const Login: FC = () => {
+    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const signIn = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
         //firebase login
+        auth.signInWithEmailAndPassword(email, password)
+            .then((auth) => {
+                if (auth) {
+                    history.push('/');
+                }
+            })
+            .catch((error) => alert(error.message));
     };
     const register = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((auth) => {
+                //success
+                if (auth) {
+                    history.push('/');
+                }
+            })
+            .catch((error) => alert(error.message));
         //firebase register
     };
 
