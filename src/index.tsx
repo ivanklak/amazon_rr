@@ -8,15 +8,13 @@ import reportWebVitals from './reportWebVitals';
 import store from "./app/redux-store";
 
 import './index.css';
-import Login from "./Auth/Login";
-import Register from "./Auth/Register";
+import Login from "./Auth/components/Login";
 
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
             <Switch>
                 <Route path="/login" component={Login}/>
-                <Route path="/register" component={Register}/>
                 <Route component={App}/>
             </Switch>
         </Provider>

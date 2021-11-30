@@ -1,8 +1,8 @@
 import React, {FC, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 
-import {auth} from "../../firebase";
-import Logo from "../../app/images/1600px-Amazon_logo.svg.png";
+import {auth} from "../../../firebase";
+import Logo from "../../../app/images/1600px-Amazon_logo.svg.png";
 
 import styles from "./styles.module.css";
 
