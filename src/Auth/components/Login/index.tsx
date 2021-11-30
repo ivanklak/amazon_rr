@@ -10,8 +10,16 @@ const Login: FC = () => {
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+    // console.log(error);
+
     const signIn = (e: React.SyntheticEvent) => {
         e.preventDefault();
+
+        if (password.length === 0) {
+            setError('Please enter your password');
+        }
 
         //firebase login
         auth.signInWithEmailAndPassword(email, password)
@@ -20,10 +28,31 @@ const Login: FC = () => {
                     history.push('/');
                 }
             })
-            .catch((error) => alert(error.message));
+            .catch((error) => {
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        setError('Email not found :(');
+                        break;
+                    case 'auth/wrong-password':
+                        setError('Invalid email or password');
+                        break;
+                    case 'auth/invalid-email':
+                        setError('Wrong email format');
+                        break;
+                    case 'auth/too-many-requests':
+                        setError('To many failed login attempts. You can immediately restore it ' +
+                            'by resetting your password or you can try again later.');
+                        break;
+                }
+            });
     };
+
     const register = (e: React.SyntheticEvent) => {
         e.preventDefault();
+
+        if (password.length === 0) {
+            setError('Please enter your password');
+        }
 
         auth.createUserWithEmailAndPassword(email, password)
             .then((auth) => {
@@ -32,8 +61,17 @@ const Login: FC = () => {
                     history.push('/');
                 }
             })
-            .catch((error) => alert(error.message));
-        //firebase register
+            .catch((error) => {
+                console.log(error);
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        setError('Email already in use!');
+                        break;
+                    case 'auth/invalid-email':
+                        setError('Wrong email format');
+                        break;
+                }
+            });
     };
 
     return (
@@ -54,6 +92,10 @@ const Login: FC = () => {
                         <button type="submit" onClick={signIn}>Sign-in</button>
                     </form>
                     <p>By signing-in, you agree to Amazons Conditions of Use and Privacy Notice.</p>
+                    {error ?
+                        <div className={styles.loginError}>{error}</div>
+                        : null
+                    }
                 </div>
                 <div className={styles.loginRegister}>
                     <p>New to Amazon?</p>
