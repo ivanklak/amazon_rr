@@ -1,6 +1,5 @@
 import React, {FC, useEffect, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
-
 import {useSelector} from "react-redux";
 
 import {registerWithEmailAndPassword, signInWithEmailAndPassword} from "../../../firebase";
@@ -19,12 +18,14 @@ const Login: FC = () => {
 
         useEffect(() => {
             if (user) {
-                console.log(user, "login");
                 history.replace("/");
             }
         }, [user]);
 
         const registerPath = () => history.location.pathname === "/login/register";
+        const onCreateClick = () => {
+            history.push('/login/register');
+        };
 
         const signIn = async (e: React.SyntheticEvent) => {
             e.preventDefault();
@@ -113,7 +114,7 @@ const Login: FC = () => {
                     </div>
                     {!registerPath() && <div className={styles.loginRegister}>
                         <p>New to Amazon?</p>
-                        <button onClick={register}>Create your Amazon Account</button>
+                        <button onClick={onCreateClick}>Create your Amazon Account</button>
                     </div>
                     }
                 </div>

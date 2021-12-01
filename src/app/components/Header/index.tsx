@@ -29,7 +29,7 @@ const Header = () => {
 
             setName(data.name);
         } catch (err) {
-            console.error(err, "fetchNameError");
+            setName('Noname');
         }
     };
 
