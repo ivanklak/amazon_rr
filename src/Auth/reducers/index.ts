@@ -15,7 +15,6 @@ const authReducer = (state = initialState, action: AuthenticationAction): IAuthe
                 ...state,
                 user: action.payload
             };
-
         default:
             return state;
     }

@@ -1,4 +1,4 @@
-import {AppStateType} from "../redux-store";
+import {AppStateType} from "../../app/redux-store";
 
 const selector = (state: AppStateType) => ({
     user: state.auth.user,
