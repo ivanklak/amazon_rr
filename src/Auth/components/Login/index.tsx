@@ -12,7 +12,7 @@ const Login: FC = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    // console.log(error);
+    const registerPath = () => history.location.pathname === "/login/register";
 
     const signIn = (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -81,26 +81,29 @@ const Login: FC = () => {
             </Link>
             <div className={styles.loginContainer}>
                 <div className={styles.loginForm}>
-                    <h1>Sign-in</h1>
+                    <h1>{registerPath() ? "Create account" : "Sign-in"}</h1>
                     <form>
                         <h5>Email</h5>
                         <input type='text' value={email} onChange={(e) => setEmail(e.target.value)}/>
 
                         <h5>Password</h5>
                         <input type='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
-
-                        <button type="submit" onClick={signIn}>Sign-in</button>
+                        {registerPath() ?
+                            <div className={styles.loginRegister}>
+                                <button onClick={register}>Create your Amazon Account</button>
+                            </div>
+                            : <button type="submit" onClick={signIn}>Sign-in</button>
+                        }
                     </form>
-                    <p>By signing-in, you agree to Amazons Conditions of Use and Privacy Notice.</p>
-                    {error ?
-                        <div className={styles.loginError}>{error}</div>
-                        : null
-                    }
+                    <p>By {registerPath() ? "creating an account" : "signing-in"}, you agree to Amazons Conditions of
+                        Use and Privacy Notice.</p>
+                    {error && <div className={styles.loginError}>{error}</div>}
                 </div>
-                <div className={styles.loginRegister}>
+                {!registerPath() && <div className={styles.loginRegister}>
                     <p>New to Amazon?</p>
                     <button onClick={register}>Create your Amazon Account</button>
                 </div>
+                }
             </div>
         </div>
     );

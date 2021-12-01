@@ -40,7 +40,8 @@ const Modal: FC<IModalProps> = ({message, isOpen, accountRef, openPortal, user})
                             </div>
                             :
                             <div>New customer?
-                                <Link to="/login" onClick={openPortal} className={styles.linkToLogin}> Start here.</Link>
+                                <Link to="/login/register" onClick={openPortal} className={styles.linkToLogin}> Start
+                                    here.</Link>
                             </div>
                         }
                     </div>
