@@ -1,0 +1,42 @@
+.deals {
+    height: 400px;
+    width: 334px;
+    background-color: white;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.title {
+    background-color: white;
+    padding: 0 20px 0 20px;
+    letter-spacing: 0.02em;
+}
+
+.title p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.advertisement {
+    margin: 0 20px;
+    height: 100%;
+    background-color: #0cb1e4;
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.advertisement p {
+    padding: 20px;
+}
+
+.btmLink {
+    cursor: pointer;
+    font-size: 13px;
+    color: #086d81;
+    padding: 20px 20px 20px 20px;
+    font-weight: 500;
+}

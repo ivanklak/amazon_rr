@@ -117,6 +117,10 @@ const Login: FC = () => {
                         <button onClick={onCreateClick}>Create your Amazon Account</button>
                     </div>
                     }
+                    {registerPath() && <div className={styles.loginRegister}>
+                        <p>Already have an account? <Link to='/login'>Sign in here.</Link></p>
+                    </div>
+                    }
                 </div>
             </div>
         );
