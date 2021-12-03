@@ -3,10 +3,12 @@ import thunkMiddleware from 'redux-thunk';
 
 import productsReducer from "../pages/Homepage/reducers";
 import authReducer from "../Auth/reducers";
+import checkoutReducer from "../pages/Checkout/reducers";
 
 export const reducers = combineReducers({
     productsHomepage: productsReducer,
-    auth: authReducer
+    auth: authReducer,
+    checkout: checkoutReducer
 });
 
 type ReducerType = typeof reducers;

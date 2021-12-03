@@ -12,7 +12,7 @@ import styles from './styles.module.css';
 
 const Header = () => {
     const history = useHistory();
-    const {user} = useSelector(selector);
+    const {user, basket} = useSelector(selector);
     const accountRef = useRef(null);
     const [accountSt, setAccountSt] = useState(null as any);
     const [open, setOpen] = useState(false);
@@ -47,6 +47,10 @@ const Header = () => {
 
     const openPortal = () => {
         setOpen(!open);
+    };
+
+    const onBasketClick = () => {
+        history.push('/checkout');
     };
 
     return (
@@ -86,8 +90,8 @@ const Header = () => {
                         </div>
                     </div>
                     <div className={styles.rightSideItem}>
-                        <div className={styles.basket}>
-                            <div className={styles.itemsCount}>0</div>
+                        <div className={styles.basket} onClick={onBasketClick}>
+                            <div className={styles.itemsCount}>{basket.length}</div>
                             <ShoppingCartIcon className={styles.basketIcon}/>
                             <p>Basket</p>
                         </div>
