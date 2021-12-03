@@ -4,6 +4,7 @@ interface IRating {
 }
 
 export interface IProduct {
+    count?: number;
     id: number;
     title: string;
     price: string;
