@@ -7,11 +7,12 @@ import Product from "../Product";
 import Card from "../Card";
 import Categories from "../Categories";
 import SignIn from "../SignIn";
+import Deals from "../Deals";
 
 import styles from "./styles.module.css";
 
 const ProductFeed = () => {
-    const {products} = useSelector(selector);
+    const {products, user} = useSelector(selector);
     const dispatch = useDispatch();
 
     const firstProducts = products.slice(0, 7);
@@ -28,11 +29,11 @@ const ProductFeed = () => {
                 {firstProducts.map(item => (
                     <Product key={item.id} product={item}/>
                 ))}
-                <SignIn />
+                {user ? <Deals/> : <SignIn/>}
             </div>
             <Card cardProducts={cardProducts}/>
             <div className={styles.productsItems}>
-                <Categories />
+                <Categories/>
                 {cardProducts.map(item => (
                     <Product key={item.id} product={item}/>
                 ))}

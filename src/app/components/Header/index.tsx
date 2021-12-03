@@ -1,22 +1,49 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {ChevronDownIcon, MenuIcon, SearchIcon, ShoppingCartIcon} from "@heroicons/react/outline";
 import {useHistory} from "react-router-dom";
+import {useSelector} from "react-redux";
 
+import {db} from "../../../firebase";
 import logo from '../../images/amazon_PNG11.png';
+import selector from "../../selectors";
 import Modal from "../Modal";
 
 import styles from './styles.module.css';
 
 const Header = () => {
     const history = useHistory();
+    const {user} = useSelector(selector);
     const accountRef = useRef(null);
     const [accountSt, setAccountSt] = useState(null as any);
     const [open, setOpen] = useState(false);
-    const onLogoClick = () => {
-        history.push('/');
+    const [name, setName] = useState('');
+
+    const fetchUserName = async () => {
+        try {
+            const query = await db
+                .collection("users")
+                .where("uid", "==", user?.uid)
+                .get();
+
+            const data = query.docs[0].data();
+
+            setName(data.name);
+        } catch (err) {
+            setName('Noname');
+        }
     };
 
-    console.log(accountSt);
+    useEffect(() => {
+        if (!user) {
+            return;
+        }
+        fetchUserName();
+    }, [user]);
+
+    const onLogoClick = () => {
+        console.log(accountSt);
+        history.push('/');
+    };
 
     const openPortal = () => {
         setOpen(!open);
@@ -42,14 +69,15 @@ const Header = () => {
                         setAccountSt(accountRef.current);
                     }} className={styles.rightSide}>
                     <div onClick={openPortal} className={styles.rightSideItem}>
-                        <p>Hi Ivan</p>
+                        <p>Hello, {user ? `${name}` : "Sign in"}</p>
                         <p>Account & Lists</p>
                     </div>
                     <Modal
-                        message="Sign in"
+                        message={user ? "Sign out" : "Sign in"}
                         isOpen={open}
                         openPortal={openPortal}
                         accountRef={accountRef}
+                        user={user}
                     />
                     <div className={styles.rightSideItem}>
                         <div className={styles.returns}>
