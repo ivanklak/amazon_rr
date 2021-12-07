@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {RouteComponentProps} from "react-router-dom";
+import {RouteComponentProps, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 import {addToBasket} from "../Checkout/thunks";
@@ -15,13 +15,24 @@ interface IProductProps {
 
 const Product: FC<RouteComponentProps<IProductProps>> = props => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const currentProductId = props.match.params.id;
-    const {products} = useSelector(selector);
+    const {products, user} = useSelector(selector);
 
     const currentProduct = products.find(item => item.id === Number(currentProductId));
 
     const onAddClick = () => {
+        if (user) {
+            dispatch(addToBasket(currentProduct as IProduct));
+        } else {
+            history.push('/login');
+            dispatch(addToBasket(currentProduct as IProduct));
+        }
+    };
+
+    const onBuyClick = () => {
         dispatch(addToBasket(currentProduct as IProduct));
+        history.push('/checkout');
     };
 
     return (
@@ -44,8 +55,13 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
                 </div>
             </div>
             <div className={styles.productAdd}>
-                <div>Add to list</div>
-                <button onClick={onAddClick}>Add to List</button>
+                <div>
+                    <div>${currentProduct?.price}</div>
+                    <p>$18.26 Shipping & Import Fees Deposit to Russian Federation</p>
+                    <div>quantity</div>
+                    <button onClick={onAddClick}>Add to Cart</button>
+                    <button onClick={onBuyClick}>Buy now</button>
+                </div>
             </div>
         </div>
     );

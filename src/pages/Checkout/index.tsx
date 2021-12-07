@@ -1,13 +1,18 @@
 import React, {FC} from "react";
 import {useSelector} from "react-redux";
+import {Link, useHistory} from "react-router-dom";
+import {CartDash} from "@styled-icons/bootstrap/CartDash";
+import {Cup} from '@styled-icons/entypo/Cup';
 
 import {IProduct} from "../Homepage/types";
 
 import selector from "./selectors";
 
+import styles from './styles.module.css';
 
 const Checkout: FC = () => {
-    const {basket} = useSelector(selector);
+    const history = useHistory();
+    const {basket, user} = useSelector(selector);
 
     const sameIds = (arr: Array<IProduct>) => {
 
@@ -38,8 +43,14 @@ const Checkout: FC = () => {
     };
 
     const uniqueBasket = sameIds(basket);
+    const onSignInClick = () => {
+        history.push('/login');
+    };
+    const onSignUpClick = () => {
+        history.push('/login/register');
+    };
 
-    return (
+    return basket.length !== 0 ? (
         <div>
             {uniqueBasket.map(item => (
                 <div key={item.id}>
@@ -48,6 +59,44 @@ const Checkout: FC = () => {
                     </div>
                 </div>
             ))}
+        </div>
+    ) : (
+        <div className={styles.emptyBasket}>
+            <div className={styles.leftBlock}>
+                <div className={styles.leftTextField}>
+                    <div className={styles.textBlock}>
+                        <div className={styles.leftImg}>
+                            <CartDash size={116} color="#B0D4D9FF"/>
+                            <Cup size={84} color="#C5DDD7FF"/>
+                        </div>
+                        <div>
+                            <h2>Your Amazon Cart is empty</h2>
+                            <Link className={styles.linkToHome} to='/'>Shop today`s deals</Link>
+                            {!user &&
+                            <div className={styles.leftBlockButtons}>
+                                <button className={styles.btnSignIn} onClick={onSignInClick}>Sign in to your account
+                                </button>
+                                <button className={styles.btnSignUp} onClick={onSignUpClick}>Sign up now</button>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.emptyWhiteBlock}/>
+                <p>The price and availability of items at Amazon.com are subject to change. The Cart is a
+                    temporary
+                    place to store a list of your items and reflects each items most recent price. Shopping
+                    CartLearn
+                    more
+
+                    Do you have a gift card or promotional code? We ll ask you to enter your claim code when it is
+                    time
+                    to pay.
+                </p>
+            </div>
+            <div className={styles.rightBlock}>
+                <h5>Your recently viewed items</h5>
+            </div>
         </div>
     );
 };

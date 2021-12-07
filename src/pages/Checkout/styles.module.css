@@ -1,0 +1,100 @@
+.leftBlock {
+    margin: 16px 20px 0 0;
+}
+
+.leftBlock p {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.leftTextField {
+    padding: 20px 20px 15px 20px;
+    background-color: white;
+    margin: 16px 0 20px 0;
+}
+
+.textBlock {
+    margin: 32px 0 0 0;
+    display: flex;
+}
+
+.leftTextField h2 {
+    margin: 0;
+}
+
+.emptyWhiteBlock {
+    height: 60px;
+    background-color: white;
+    margin: 0 0 20px 0;
+}
+
+.emptyBasket {
+    display: flex;
+    padding: 14px 18px 18px;
+}
+
+.leftImg {
+    width: 31.948%;
+    margin-right: 2%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.linkToHome {
+    text-decoration: none;
+    color: #007185;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.leftBlockButtons {
+    margin: 16px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btnSignIn {
+    background: #FFD814;
+    border: 1px solid #FCD200;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px 0 rgb(213 217 217);
+    height: 32px;
+    padding: 0 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btnSignIn:hover {
+    background: #f5d123;
+}
+
+.btnSignUp {
+    background: #FFF;
+    border: 1px solid #D5D9D9;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px 0 rgb(213 217 217);
+    height: 32px;
+    padding: 0 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btnSignUp:hover {
+    background: #f5f5f5;
+}
+
+
+.rightBlock {
+    background-color: white;
+    min-width: 262px;
+    border-radius: 8px;
+    border: 1px solid #d7d7d7;
+    padding: 14px 18px;
+}
+
+.rightBlock h5 {
+    margin: 0;
+}
