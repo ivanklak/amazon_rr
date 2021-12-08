@@ -1,0 +1,12 @@
+.advField {
+    background-color: rgb(243, 243, 243);
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.advField > h1 {
+    color: white;
+    margin: 0;
+}

@@ -32,6 +32,7 @@
 .productDescription h2 {
     font-weight: 550;
     font-size: 24px;
+    margin: 0 0 15px 0;
     font-family: "Amazon Ember", Arial, sans-serif;
 }
 
