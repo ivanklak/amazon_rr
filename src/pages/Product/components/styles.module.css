@@ -1,0 +1,33 @@
+.dropdown {
+    position: absolute;
+    background-color: #eeeeee;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 #d0d0d0;
+}
+
+.dropList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 7px 0;
+    border-radius: 5px;
+}
+
+.dropList > li:first-child {
+    border-top: 1px solid #d2d2d2;
+}
+
+.dropItem {
+    list-style-type: none;
+    border-bottom: 1px solid #d2d2d2;
+    cursor: pointer;
+    padding: 5px 20px;
+}
+
+.dropItem:hover {
+    background-color: #dcdcdc;
+    border-radius: 5px;
+}
