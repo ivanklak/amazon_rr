@@ -1,5 +1,6 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 import productsReducer from "../pages/Homepage/reducers";
 import authReducer from "../Auth/reducers";
@@ -16,7 +17,7 @@ export const reducers = combineReducers({
 type ReducerType = typeof reducers;
 export type AppStateType = ReturnType<ReducerType>;
 
-const store = createStore(reducers, applyMiddleware(thunkMiddleware));
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
