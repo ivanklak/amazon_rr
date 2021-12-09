@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {RouteComponentProps, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {StarFill} from '@styled-icons/bootstrap/StarFill';
@@ -11,6 +11,7 @@ import {IProduct} from "../Homepage/types";
 
 import selector from "./selector";
 import DropDownCard from "./components/DropDownCard";
+import {getSingleProduct} from "./thunks";
 
 import styles from './styles.module.css';
 
@@ -21,8 +22,7 @@ interface IProductProps {
 const Product: FC<RouteComponentProps<IProductProps>> = props => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const currentProductId = props.match.params.id;
-    const {products, user} = useSelector(selector);
+    const {user, product} = useSelector(selector);
     const [quantity, setQuantity] = useState(1);
     const [open, setOpen] = useState(false);
     const qtyData = [1, 2, 3];
@@ -31,23 +31,27 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
         setOpen(!open);
     };
 
-    const currentProduct = products.find(item => item.id === Number(currentProductId));
+    useEffect(() => {
+        const id = Number(props.match.params.id);
+
+        dispatch(getSingleProduct(id));
+    }, []);
 
     const onAddClick = () => {
         if (user) {
-            dispatch(addToBasket(currentProduct as IProduct));
+            dispatch(addToBasket(product as IProduct));
         } else {
             history.push('/login');
-            dispatch(addToBasket(currentProduct as IProduct));
+            dispatch(addToBasket(product as IProduct));
         }
     };
 
     const onBuyClick = () => {
-        dispatch(addToBasket(currentProduct as IProduct));
+        dispatch(addToBasket(product as IProduct));
         history.push('/checkout');
     };
 
-    const getStars = (num: number | any) => {
+    const getStars = (num: number) => {
         const resultArray = [];
         const roundNum = Math.floor(num);
         const end = num - roundNum;
@@ -63,11 +67,11 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
         }
     };
 
-    const shippingPrice = () => (Number(currentProduct?.price) / 100 * 30).toFixed(2);
+    const shippingPrice = () => (Number(product?.price) / 100 * 30).toFixed(2);
 
     const isInteger = (num: number) => (num ^ 0) === num;
 
-    const descriptionFormat = (string: any) => {
+    const descriptionFormat = (string: string) => {
         const arr = string.split('.');
         const resultArray: Array<string> = [];
 
@@ -76,26 +80,26 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
         return resultArray;
     };
 
-    return (
+    return product && (
         <div>
             <WideAdv/>
             <div className={styles.productPage}>
                 <div className={styles.leftColumn}>
                     <div className={styles.productImgField}>
-                        <img src={currentProduct?.image} className={styles.productImg} alt="productImg"/>
+                        <img src={product.image} className={styles.productImg} alt="productImg"/>
                     </div>
                 </div>
                 <div className={styles.productDescription}>
-                    <h2>{currentProduct?.title}</h2>
+                    <h2>{product.title}</h2>
                     <div className={styles.rating}>
                         <div className={styles.stars}>
-                            {getStars(currentProduct?.rating.rate).map(i => (
+                            {getStars(product.rating.rate).map(i => (
                                 isInteger(i)
                                     ? <div key={i}><StarFill size={20} color='#F49D20FF'/></div>
                                     : <div key={i}><StarHalf size={20} color='#F49D20FF'/></div>
                             ))}
                         </div>
-                        <div>{currentProduct?.rating.count} ratings</div>
+                        <div>{product.rating.count} ratings</div>
                     </div>
                     <div className={styles.parameters}>
                         <table>
@@ -103,7 +107,7 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
                             <tr>
                                 <td className={styles.priceColumn}>Price:</td>
                                 <td>
-                                    <span className={styles.priceNumber}>${currentProduct?.price}</span>
+                                    <span className={styles.priceNumber}>${product.price}</span>
                                     <span className={styles.shippingPrice}> + ${shippingPrice()} shipping</span>
                                 </td>
                             </tr>
@@ -113,7 +117,7 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
                     <div className={styles.about}>
                         <h4>About this item</h4>
                         <ul>
-                            {descriptionFormat(currentProduct?.description).map(item => (
+                            {descriptionFormat(product.description).map(item => (
                                 <li key={item}>{item}</li>
                             ))}
                         </ul>
@@ -122,7 +126,7 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
                 <div className={styles.productAdd}>
                     <div className={styles.addForm}>
                         <div>
-                            <span className={styles.priceNumber}>${currentProduct?.price}</span>
+                            <span className={styles.priceNumber}>${product.price}</span>
                         </div>
                         <div>
                             <span className={styles.shippingPrice}>${shippingPrice()} Shipping & Import Fees Deposit to Russian Federation</span>
