@@ -5,6 +5,8 @@ import {CartDash} from "@styled-icons/bootstrap/CartDash";
 import {Cup} from '@styled-icons/entypo/Cup';
 
 import {IProduct} from "../Homepage/types";
+import {fixedPrice} from "../../app/helpers";
+import Rating from "../../app/components/Rating";
 
 import selector from "./selectors";
 
@@ -42,7 +44,7 @@ const Checkout: FC = () => {
         return resArr;
     };
 
-    const uniqueBasket = sameIds(basket);
+    const uniqueBasket: Array<IProduct> = sameIds(basket);
     const onSignInClick = () => {
         history.push('/login');
     };
@@ -50,15 +52,68 @@ const Checkout: FC = () => {
         history.push('/login/register');
     };
 
+    const subtotalPrice = () => {
+        let total = 0;
+
+        for (let i = 0; i < basket.length; i++) {
+            const currentItem = basket[i];
+
+            total += Number(currentItem.price);
+        }
+
+        return total.toFixed(2);
+    };
+
     return basket.length !== 0 ? (
-        <div>
-            {uniqueBasket.map(item => (
-                <div key={item.id}>
+        <div className={styles.fullBasket}>
+            <div className={styles.fullBasketList}>
+                <div className={styles.fullBasketTittle}>
                     <div>
-                        <h4>{item.title} - {item.count}</h4>
+                        <h1>Shopping Cart</h1>
+                        <div className={styles.tittleSpan}>
+                            <span>Price</span>
+                        </div>
                     </div>
                 </div>
-            ))}
+                <div className={styles.itemsList}>
+                    {uniqueBasket.map(item => (
+                        <div key={item.id} className={styles.item}>
+                            <div>
+                                <div className={styles.itemImgField}>
+                                    <img src={item.image} alt={item.image}/>
+                                </div>
+                                <div className={styles.itemDescription}>
+                                    <h4>{item.title} - {item.count}</h4>
+                                    <div className={styles.itemRating}>
+                                        <Rating rate={item.rating.rate} size={15}/>
+                                        <div>({item.rating.count} ratings)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styles.itemPrice}>
+                                <span>${fixedPrice(item.price)}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div className={styles.fullBasketSubtotal}>
+                    <span>Subtotal ({basket.length} {basket.length > 1 ? "items" : "item"}):</span>
+                    <span>${subtotalPrice()}</span>
+                </div>
+
+            </div>
+            <div className={styles.rightSideBlock}>
+                <div className={styles.subtotal}>
+                    <div>
+                        <span>Subtotal ({basket.length} {basket.length > 1 ? "items" : "item"}):</span>
+                        <span>${subtotalPrice()}</span>
+                    </div>
+                    <button>Proceed to checkout</button>
+                </div>
+                <div className={styles.sponsoredProducts}>
+                    <span>Sponsored Products related to items in your cart</span>
+                </div>
+            </div>
         </div>
     ) : (
         <div className={styles.emptyBasket}>

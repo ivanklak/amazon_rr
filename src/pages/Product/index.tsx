@@ -1,13 +1,14 @@
 import React, {FC, useEffect, useState} from "react";
 import {RouteComponentProps, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {StarFill} from '@styled-icons/bootstrap/StarFill';
-import {StarHalf} from '@styled-icons/bootstrap/StarHalf';
 import {LockAlt} from '@styled-icons/boxicons-solid/LockAlt';
 
 import WideAdv from "../../app/components/Advertisment/wideAdv";
 import {addToBasket} from "../Checkout/thunks";
 import {IProduct} from "../Homepage/types";
+import {fixedPrice} from "../../app/helpers";
+
+import Rating from "../../app/components/Rating";
 
 import selector from "./selector";
 import DropDownCard from "./components/DropDownCard";
@@ -51,25 +52,7 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
         history.push('/checkout');
     };
 
-    const getStars = (num: number) => {
-        const resultArray = [];
-        const roundNum = Math.floor(num);
-        const end = num - roundNum;
-
-        for (let i = 1; i <= roundNum; i++) {
-            resultArray.push(i);
-        }
-
-        if (end) {
-            return resultArray.concat(end);
-        } else {
-            return resultArray;
-        }
-    };
-
     const shippingPrice = () => (Number(product?.price) / 100 * 30).toFixed(2);
-
-    const isInteger = (num: number) => (num ^ 0) === num;
 
     const descriptionFormat = (string: string) => {
         const arr = string.split('.');
@@ -92,13 +75,7 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
                 <div className={styles.productDescription}>
                     <h2>{product.title}</h2>
                     <div className={styles.rating}>
-                        <div className={styles.stars}>
-                            {getStars(product.rating.rate).map(i => (
-                                isInteger(i)
-                                    ? <div key={i}><StarFill size={20} color='#F49D20FF'/></div>
-                                    : <div key={i}><StarHalf size={20} color='#F49D20FF'/></div>
-                            ))}
-                        </div>
+                        <Rating rate={product.rating.rate} size={20}/>
                         <div>{product.rating.count} ratings</div>
                     </div>
                     <div className={styles.parameters}>
@@ -107,7 +84,7 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
                             <tr>
                                 <td className={styles.priceColumn}>Price:</td>
                                 <td>
-                                    <span className={styles.priceNumber}>${product.price}</span>
+                                    <span className={styles.priceNumber}>${fixedPrice(product.price)}</span>
                                     <span className={styles.shippingPrice}> + ${shippingPrice()} shipping</span>
                                 </td>
                             </tr>
@@ -126,7 +103,7 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
                 <div className={styles.productAdd}>
                     <div className={styles.addForm}>
                         <div>
-                            <span className={styles.priceNumber}>${product.price}</span>
+                            <span className={styles.priceNumber}>${fixedPrice(product.price)}</span>
                         </div>
                         <div>
                             <span className={styles.shippingPrice}>${shippingPrice()} Shipping & Import Fees Deposit to Russian Federation</span>

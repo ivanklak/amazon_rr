@@ -2,6 +2,7 @@ import React, {FC} from "react";
 import {NavLink} from 'react-router-dom';
 
 import {IProduct} from "../../types";
+import {fixedPrice} from "../../../../app/helpers";
 
 import styles from "./styles.module.css";
 
@@ -47,7 +48,7 @@ const Product: FC<IProductProps> = ({product}) => {
                     </NavLink>
                 </div>
             </div>
-            <div className={styles.productPrice}>{product.price}$</div>
+            <div className={styles.productPrice}>{fixedPrice(product.price)}$</div>
         </div>
     );
 
