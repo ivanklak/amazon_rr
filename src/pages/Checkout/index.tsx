@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Link, useHistory} from "react-router-dom";
 import {CartDash} from "@styled-icons/bootstrap/CartDash";
 import {Cup} from '@styled-icons/entypo/Cup';
@@ -9,10 +9,12 @@ import {fixedPrice} from "../../app/helpers";
 import Rating from "../../app/components/Rating";
 
 import selector from "./selectors";
+import {removeFromBasket} from "./thunks";
 
 import styles from './styles.module.css';
 
 const Checkout: FC = () => {
+    const dispatch = useDispatch();
     const history = useHistory();
     const {basket, user} = useSelector(selector);
 
@@ -64,6 +66,10 @@ const Checkout: FC = () => {
         return total.toFixed(2);
     };
 
+    const onRemoveClick = (id: number) => {
+        dispatch(removeFromBasket(id));
+    };
+
     return basket.length !== 0 ? (
         <div className={styles.fullBasket}>
             <div className={styles.fullBasketList}>
@@ -87,6 +93,9 @@ const Checkout: FC = () => {
                                     <div className={styles.itemRating}>
                                         <Rating rate={item.rating.rate} size={15}/>
                                         <div>({item.rating.count} ratings)</div>
+                                    </div>
+                                    <div>
+                                        <button onClick={() => onRemoveClick(item.id)}>x</button>
                                     </div>
                                 </div>
                             </div>
