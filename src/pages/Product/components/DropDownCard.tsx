@@ -6,12 +6,16 @@ interface IDropDownProps {
     data: Array<number>;
     setOpen: (bool: boolean) => void;
     setQuantity: (num: number) => void;
+    addCount: (num: number) => void;
 }
 
-const DropDownCard: FC<IDropDownProps> = ({data = [], setOpen, setQuantity}) => {
+const DropDownCard: FC<IDropDownProps> = ({data = [], setOpen, setQuantity, addCount}) => {
 
     const onItemClick = (e: React.BaseSyntheticEvent) => {
-        setQuantity(Number(e.target.innerHTML));
+        const itemsCount = Number(e.target.innerHTML);
+
+        setQuantity(itemsCount);
+        addCount(itemsCount);
         setOpen(false);
     };
 

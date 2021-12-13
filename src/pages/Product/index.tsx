@@ -26,6 +26,7 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
     const {user, product} = useSelector(selector);
     const [quantity, setQuantity] = useState(1);
     const [open, setOpen] = useState(false);
+    const [newProduct, setNewProduct] = useState({});
     const qtyData = [1, 2, 3];
 
     const onQtyClick = () => {
@@ -38,17 +39,21 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
         dispatch(getSingleProduct(id));
     }, []);
 
+    useEffect(() => {
+        setNewProduct({...product, count: quantity});
+    }, [product]);
+
     const onAddClick = () => {
         if (user) {
-            dispatch(addToBasket(product as IProduct));
+            dispatch(addToBasket(newProduct as IProduct));
         } else {
             history.push('/login');
-            dispatch(addToBasket(product as IProduct));
+            dispatch(addToBasket(newProduct as IProduct));
         }
     };
 
     const onBuyClick = () => {
-        dispatch(addToBasket(product as IProduct));
+        dispatch(addToBasket(newProduct as IProduct));
         history.push('/checkout');
     };
 
@@ -61,6 +66,10 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
         arr.forEach((item: string) => item !== "" && resultArray.push(item));
 
         return resultArray;
+    };
+
+    const addCount = (num: number) => {
+        setNewProduct({...product, count: num});
     };
 
     return product && (
@@ -84,7 +93,7 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
                             <tr>
                                 <td className={styles.priceColumn}>Price:</td>
                                 <td>
-                                    <span className={styles.priceNumber}>${fixedPrice(product.price)}</span>
+                                    <span className={styles.priceNumber}>${fixedPrice(Number(product.price))}</span>
                                     <span className={styles.shippingPrice}> + ${shippingPrice()} shipping</span>
                                 </td>
                             </tr>
@@ -103,14 +112,15 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
                 <div className={styles.productAdd}>
                     <div className={styles.addForm}>
                         <div>
-                            <span className={styles.priceNumber}>${fixedPrice(product.price)}</span>
+                            <span className={styles.priceNumber}>${fixedPrice(Number(product.price))}</span>
                         </div>
                         <div>
                             <span className={styles.shippingPrice}>${shippingPrice()} Shipping & Import Fees Deposit to Russian Federation</span>
                         </div>
                         <div className={styles.qtyButton}>
                             <button onClick={onQtyClick}>Qty: {quantity}</button>
-                            {open && <DropDownCard data={qtyData} setOpen={setOpen} setQuantity={setQuantity}/>}
+                            {open && <DropDownCard addCount={addCount} data={qtyData} setOpen={setOpen}
+                                                   setQuantity={setQuantity}/>}
                         </div>
                         <div className={styles.addButtons}>
                             <button onClick={onAddClick} className={styles.addButton}>Add to Cart</button>

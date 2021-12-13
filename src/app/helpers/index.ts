@@ -1,5 +1,1 @@
-export const fixedPrice = (price: string) => {
-    const num = Number(price);
-
-    return num.toFixed(2);
-};
+export const fixedPrice = (price: number) => price.toFixed(2);

@@ -4,7 +4,7 @@ import {Link, useHistory} from "react-router-dom";
 import {CartDash} from "@styled-icons/bootstrap/CartDash";
 import {Cup} from '@styled-icons/entypo/Cup';
 
-import {IProduct} from "../Homepage/types";
+// import {IProduct} from "../Homepage/types";
 import {fixedPrice} from "../../app/helpers";
 import Rating from "../../app/components/Rating";
 
@@ -18,35 +18,35 @@ const Checkout: FC = () => {
     const history = useHistory();
     const {basket, user} = useSelector(selector);
 
-    const sameIds = (arr: Array<IProduct>) => {
-
-        for (let i = 0; i < arr.length; i++) {
-            const currentItem = arr[i];
-
-            let count = 0;
-            for (let j = 0; j < arr.length; j++) {
-                if (currentItem.id === arr[j].id) {
-                    count++;
-                }
-            }
-            currentItem.count = count;
-        }
-        const resArr: Array<any> = [];
-
-        arr.filter(item => {
-            const i = resArr.findIndex(x => (x.id == item.id));
-
-            if (i <= -1) {
-                resArr.push(item);
-            }
-
-            return null;
-        });
-
-        return resArr;
-    };
-
-    const uniqueBasket: Array<IProduct> = sameIds(basket);
+    // const sameIds = (arr: Array<IProduct>) => {
+    //
+    //     for (let i = 0; i < arr.length; i++) {
+    //         const currentItem = arr[i];
+    //
+    //         let count = 0;
+    //         for (let j = 0; j < arr.length; j++) {
+    //             if (currentItem.id === arr[j].id) {
+    //                 count++;
+    //             }
+    //         }
+    //         currentItem.count = count;
+    //     }
+    //     const resArr: Array<any> = [];
+    //
+    //     arr.filter(item => {
+    //         const i = resArr.findIndex(x => (x.id == item.id));
+    //
+    //         if (i <= -1) {
+    //             resArr.push(item);
+    //         }
+    //
+    //         return null;
+    //     });
+    //
+    //     return resArr;
+    // };
+    //
+    // const uniqueBasket: Array<IProduct> = sameIds(basket);
     const onSignInClick = () => {
         history.push('/login');
     };
@@ -59,8 +59,9 @@ const Checkout: FC = () => {
 
         for (let i = 0; i < basket.length; i++) {
             const currentItem = basket[i];
+            const count = currentItem.count;
 
-            total += Number(currentItem.price);
+            total += (Number(currentItem.price) * (count as number));
         }
 
         return total.toFixed(2);
@@ -82,7 +83,7 @@ const Checkout: FC = () => {
                     </div>
                 </div>
                 <div className={styles.itemsList}>
-                    {uniqueBasket.map(item => (
+                    {basket.map(item => (
                         <div key={item.id} className={styles.item}>
                             <div>
                                 <div className={styles.itemImgField}>
@@ -100,7 +101,7 @@ const Checkout: FC = () => {
                                 </div>
                             </div>
                             <div className={styles.itemPrice}>
-                                <span>${fixedPrice(item.price)}</span>
+                                <span>${fixedPrice(Number(item.price) * (item.count as number))}</span>
                             </div>
                         </div>
                     ))}

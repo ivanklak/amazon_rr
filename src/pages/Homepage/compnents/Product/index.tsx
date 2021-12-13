@@ -48,7 +48,7 @@ const Product: FC<IProductProps> = ({product}) => {
                     </NavLink>
                 </div>
             </div>
-            <div className={styles.productPrice}>{fixedPrice(product.price)}$</div>
+            <div className={styles.productPrice}>{fixedPrice(Number(product.price))}$</div>
         </div>
     );
 
