@@ -79,6 +79,10 @@ const Checkout: FC = () => {
         dispatch(removeFromBasket(id));
     };
 
+    const onProceedClick = () => {
+        history.push('/payment');
+    };
+
     return basket.length !== 0 ? (
         <div className={styles.fullBasket}>
             <div className={styles.fullBasketList}>
@@ -129,7 +133,7 @@ const Checkout: FC = () => {
                         <span>Subtotal ({subtotalItems()} {subtotalItems() > 1 ? "items" : "item"}):</span>
                         <span>${subtotalPrice()}</span>
                     </div>
-                    <button>Proceed to checkout</button>
+                    <button onClick={onProceedClick}>Proceed to checkout</button>
                 </div>
                 <div className={styles.sponsoredProducts}>
                     <span>Sponsored Products related to items in your cart</span>
