@@ -46,6 +46,8 @@
 
 .itemDescription {
     padding: 0 0 0 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .itemDescription > h4 {
@@ -68,6 +70,23 @@
 
 .itemPrice > span {
     line-height: 25px;
+}
+
+.itemOptions {
+    display: flex;
+    margin: 10px 0;
+}
+
+.itemOptions > span {
+    padding: 0 10px 0 0;
+}
+
+.itemDelete {
+    border-left: 1px solid #eeeeee;
+    cursor: pointer;
+    color: #086d81;
+    padding: 0 10px;
+    font-size: 14px;
 }
 
 .fullBasketSubtotal {

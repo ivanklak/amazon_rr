@@ -54,6 +54,14 @@ const Checkout: FC = () => {
         history.push('/login/register');
     };
 
+    const subtotalItems = () => {
+        let total = 0;
+
+        basket.forEach(item => total += (item.count as number));
+
+        return total;
+    };
+
     const subtotalPrice = () => {
         let total = 0;
 
@@ -90,13 +98,16 @@ const Checkout: FC = () => {
                                     <img src={item.image} alt={item.image}/>
                                 </div>
                                 <div className={styles.itemDescription}>
-                                    <h4>{item.title} - {item.count}</h4>
+                                    <h4>{item.title}</h4>
                                     <div className={styles.itemRating}>
                                         <Rating rate={item.rating.rate} size={15}/>
                                         <div>({item.rating.count} ratings)</div>
                                     </div>
-                                    <div>
-                                        <button onClick={() => onRemoveClick(item.id)}>x</button>
+                                    <div className={styles.itemOptions}>
+                                        <span>Qty: {item.count}</span>
+                                        <div className={styles.itemDelete}>
+                                            <span onClick={() => onRemoveClick(item.id)}>Delete</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +118,7 @@ const Checkout: FC = () => {
                     ))}
                 </div>
                 <div className={styles.fullBasketSubtotal}>
-                    <span>Subtotal ({basket.length} {basket.length > 1 ? "items" : "item"}):</span>
+                    <span>Subtotal ({subtotalItems()} {subtotalItems() > 1 ? "items" : "item"}):</span>
                     <span>${subtotalPrice()}</span>
                 </div>
 
@@ -115,7 +126,7 @@ const Checkout: FC = () => {
             <div className={styles.rightSideBlock}>
                 <div className={styles.subtotal}>
                     <div>
-                        <span>Subtotal ({basket.length} {basket.length > 1 ? "items" : "item"}):</span>
+                        <span>Subtotal ({subtotalItems()} {subtotalItems() > 1 ? "items" : "item"}):</span>
                         <span>${subtotalPrice()}</span>
                     </div>
                     <button>Proceed to checkout</button>
