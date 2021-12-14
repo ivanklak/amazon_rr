@@ -1,0 +1,1 @@
+export const fixedPrice = (price: number) => price.toFixed(2);
