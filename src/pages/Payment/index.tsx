@@ -28,9 +28,10 @@ const Payment: FC = () => {
 
     useEffect(() => {
         //generate a stripe secret, allows us to charge  customer
+        const totalFixed = Number((total * 100).toFixed(0));
 
         const getClientSecret = async () => {
-            const response = await paymentAPI.getClientSecret(total * 100);
+            const response = await paymentAPI.getClientSecret(totalFixed);
 
             setClientSecret(response.data.clientSecret);
         };
