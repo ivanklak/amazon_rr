@@ -1,18 +1,22 @@
 import React, {FC, SyntheticEvent, useEffect, useState} from "react";
 import {CardElement, useElements, useStripe} from "@stripe/react-stripe-js";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
+
+import {setEmptyBasket} from "../Checkout/thunks";
+import {db} from "../../firebase";
 
 import selector from "./selectors";
 import {paymentAPI} from "./services";
 
 const Payment: FC = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const stripe = useStripe();
     const elements = useElements();
 
-    const {basket, total} = useSelector(selector);
+    const {basket, total, user} = useSelector(selector);
 
     const [succeeded, setSucceeded] = useState(false);
     const [processing, setProcessing] = useState(false);
@@ -47,11 +51,23 @@ const Payment: FC = () => {
                 card: elements?.getElement(CardElement)
             }
         }).then(({paymentIntent}) => {
+
+            db
+                .collection("users")
+                .doc(user.uid)
+                .collection("orders")
+                .doc(paymentIntent?.id)
+                .set({
+                    basket,
+                    amount: paymentIntent?.amount,
+                    created: paymentIntent?.created
+                });
+
             setSucceeded(true);
             setError(null);
             setProcessing(false);
 
-            console.log(paymentIntent, 'paymentIntent');
+            dispatch(setEmptyBasket());
 
             history.replace('/orders');
         });

@@ -30,13 +30,17 @@ const checkoutReducer = (state = initialState, action: CheckoutAction): ICheckou
 
             if (index >= 0) {
                 newBasket.splice(index, 1);
-            } else {
-                console.log('Cant remove');
             }
 
             return {
                 ...state,
                 basket: newBasket
+            };
+        }
+        case CheckoutActionTypes.SET_EMPTY_BASKET: {
+            return {
+                ...state,
+                basket: []
             };
         }
         case CheckoutActionTypes.SET_TOTAL: {

@@ -16,3 +16,8 @@ export const setBasketTotal = (price: number): IThunkResult<void, CheckoutAction
     dispatch => {
         dispatch(CheckoutActions.setTotal(price));
     };
+
+export const setEmptyBasket = (): IThunkResult<void, CheckoutAction> =>
+    dispatch => {
+        dispatch(CheckoutActions.setEmptyBasket());
+    };

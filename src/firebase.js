@@ -26,12 +26,15 @@ const registerWithEmailAndPassword = async (name, email, password) => {
         const res = await auth.createUserWithEmailAndPassword(email, password);
         const user = res.user;
 
-        await db.collection("users").add({
-            uid: user.uid,
-            name,
-            authProvider: "local",
-            email,
-        });
+        await db
+            .collection("users")
+            .doc(user.uid)
+            .set({
+                uid: user.uid,
+                name,
+                authProvider: "local",
+                email,
+            });
     } catch (err) {
         return err.code;
     }
