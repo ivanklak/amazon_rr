@@ -2,11 +2,13 @@ import {CheckoutAction, CheckoutActionTypes} from "../actions";
 import {IProduct} from "../../Homepage/types";
 
 interface ICheckoutState {
-    basket: Array<IProduct>
+    basket: Array<IProduct>,
+    total: number
 }
 
 export const initialState: ICheckoutState = {
-    basket: []
+    basket: [],
+    total: 0,
 };
 
 const checkoutReducer = (state = initialState, action: CheckoutAction): ICheckoutState => {
@@ -35,6 +37,12 @@ const checkoutReducer = (state = initialState, action: CheckoutAction): ICheckou
             return {
                 ...state,
                 basket: newBasket
+            };
+        }
+        case CheckoutActionTypes.SET_TOTAL: {
+            return {
+                ...state,
+                total: action.payload
             };
         }
         default:

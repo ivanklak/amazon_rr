@@ -12,38 +12,24 @@ const Payment: FC = () => {
     const stripe = useStripe();
     const elements = useElements();
 
-    const {basket} = useSelector(selector);
+    const {basket, total} = useSelector(selector);
 
     const [succeeded, setSucceeded] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(true);
-    const [clientSecret, setClientSecret] = useState('');
-    const [totalPrice, setTotalPrice] = useState(0);
+    const [clientSecret, setClientSecret] = useState('null');
 
     console.log(error, 'error');
-
-    const subtotalPrice = () => {
-        let total = 0;
-
-        for (let i = 0; i < basket.length; i++) {
-            const currentItem = basket[i];
-            const count = currentItem.count;
-
-            total += (Number(currentItem.price) * (count as number));
-        }
-
-        setTotalPrice(Number(total.toFixed(2)));
-    };
-
-    console.log(totalPrice, 'totalPrice');
+    console.log(clientSecret, 'secret');
+    console.log(disabled, 'disabled');
 
     useEffect(() => {
-        subtotalPrice();
         //generate a stripe secret, allows us to charge  customer
 
         const getClientSecret = async () => {
-            const response = await paymentAPI.getClientSecret(totalPrice);
+            console.log(total);
+            const response = await paymentAPI.getClientSecret(total * 100);
 
             setClientSecret(response.data.clientSecret);
         };
@@ -69,7 +55,7 @@ const Payment: FC = () => {
             setError(null);
             setProcessing(false);
 
-            console.log(paymentIntent);
+            console.log(paymentIntent, 'paymentIntent');
 
             history.replace('/orders');
         });
@@ -85,7 +71,7 @@ const Payment: FC = () => {
             <CardElement onChange={handleChange}/>
             <div>
                 <div>
-                    <span>Subtotal: ${totalPrice}</span>
+                    <span>Subtotal: ${total}</span>
                 </div>
                 <button disabled={processing || disabled || succeeded}>
                     <span>{processing ? <p>Processing...</p> : "Buy now"}</span>
