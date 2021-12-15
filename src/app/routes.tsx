@@ -7,6 +7,7 @@ import Homepage from '../pages/Homepage';
 import Product from "../pages/Product";
 import Checkout from "../pages/Checkout";
 import Payment from "../pages/Payment";
+import Orders from "../pages/Orders";
 
 const promise = loadStripe('pk_test_51K6WIuCZ76mzgSrE3inS3Wfe1gGaHhhlm4snxJs0ULDSkzGgctoZGlKa2qr3EspTBy0CBf8G13TPeI6vtCUMkLHU00wzhDdpSr');
 
@@ -20,6 +21,7 @@ const MyRoutes = () => (
                 <Payment/>
             </Elements>
         </Route>
+        <Route path="/orders" component={Orders}/>
     </Switch>
 );
 

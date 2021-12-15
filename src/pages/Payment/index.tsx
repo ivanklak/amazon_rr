@@ -18,17 +18,14 @@ const Payment: FC = () => {
     const [processing, setProcessing] = useState(false);
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(true);
-    const [clientSecret, setClientSecret] = useState('null');
+    const [clientSecret, setClientSecret] = useState('');
 
-    console.log(error, 'error');
-    console.log(clientSecret, 'secret');
-    console.log(disabled, 'disabled');
+    console.log(error);
 
     useEffect(() => {
         //generate a stripe secret, allows us to charge  customer
 
         const getClientSecret = async () => {
-            console.log(total);
             const response = await paymentAPI.getClientSecret(total * 100);
 
             setClientSecret(response.data.clientSecret);
@@ -41,7 +38,6 @@ const Payment: FC = () => {
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
         setProcessing(true);
-
 
         await stripe?.confirmCardPayment(clientSecret, {
             // eslint-disable-next-line babel/camelcase
@@ -69,12 +65,15 @@ const Payment: FC = () => {
     return (
         <form onSubmit={handleSubmit}>
             <CardElement onChange={handleChange}/>
+            {disabled && <div>
+                <span>{disabled}</span>
+            </div>}
             <div>
                 <div>
                     <span>Subtotal: ${total}</span>
                 </div>
                 <button disabled={processing || disabled || succeeded}>
-                    <span>{processing ? <p>Processing...</p> : "Buy now"}</span>
+                    <span>{processing ? "Processing..." : "Buy now"}</span>
                 </button>
             </div>
         </form>
