@@ -1,0 +1,9 @@
+.orderContainer {
+    border: 1px solid #eeeeee;
+    margin: 0 0 10px 0;
+    padding: 10px;
+}
+
+.orderItem {
+    display: flex;
+}
