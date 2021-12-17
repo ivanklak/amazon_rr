@@ -18,6 +18,8 @@ const Checkout: FC = () => {
     const {basket, user} = useSelector(selector);
     const [total, setTotal] = useState(0);
 
+    console.log(total);
+
     const subtotalPrice = () => {
         let total = 0;
 
@@ -28,7 +30,7 @@ const Checkout: FC = () => {
             total += (Number(currentItem.price) * (count as number));
         }
 
-        setTotal(Number(total.toFixed(2)));
+        setTotal(total);
     };
 
     useEffect(() => {
@@ -100,7 +102,7 @@ const Checkout: FC = () => {
                 </div>
                 <div className={styles.fullBasketSubtotal}>
                     <span>Subtotal ({subtotalItems()} {subtotalItems() > 1 ? "items" : "item"}):</span>
-                    <span>${total}</span>
+                    <span>${fixedPrice(total)}</span>
                 </div>
 
             </div>
@@ -108,7 +110,7 @@ const Checkout: FC = () => {
                 <div className={styles.subtotal}>
                     <div>
                         <span>Subtotal ({subtotalItems()} {subtotalItems() > 1 ? "items" : "item"}):</span>
-                        <span>${total}</span>
+                        <span>${fixedPrice(total)}</span>
                     </div>
                     <button onClick={onProceedClick}>Proceed to checkout</button>
                 </div>

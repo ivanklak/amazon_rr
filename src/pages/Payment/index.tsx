@@ -6,8 +6,12 @@ import {useHistory} from "react-router-dom";
 import {setEmptyBasket} from "../Checkout/thunks";
 import {db} from "../../firebase";
 
+import {fixedPrice} from "../../app/helpers";
+
 import selector from "./selectors";
 import {paymentAPI} from "./services";
+
+import styles from "./styles.module.css";
 
 const Payment: FC = () => {
     const history = useHistory();
@@ -31,11 +35,7 @@ const Payment: FC = () => {
         const totalFixed = Number((total * 100).toFixed(0));
 
         const getClientSecret = async () => {
-
-            console.log("getSecret");
             const response = await paymentAPI.getClientSecret(totalFixed);
-
-            console.log(response);
 
             setClientSecret(response.data.clientSecret);
         };
@@ -84,19 +84,24 @@ const Payment: FC = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <CardElement onChange={handleChange}/>
-            {disabled && <div>
-                <span>{disabled}</span>
-            </div>}
-            <div>
-                <div>
-                    <span>Subtotal: ${total}</span>
+        <form onSubmit={handleSubmit} className={styles.payForm}>
+            <div className={styles.payFormContainer}>
+                <div className={styles.payFormSubtotal}>
+                    <span>Subtotal: ${fixedPrice(total)}</span>
                 </div>
-                <button disabled={processing || disabled || succeeded}>
-                    <span>{processing ? "Processing..." : "Buy now"}</span>
-                </button>
+                <div className={styles.cardElement}>
+                    <CardElement onChange={handleChange}/>
+                    {disabled && <div>
+                        <span>{disabled}</span>
+                    </div>}
+                </div>
+                <div className={styles.buyButton}>
+                    <button disabled={processing || disabled || succeeded}>
+                        <span>{processing ? "Processing..." : "Buy now"}</span>
+                    </button>
+                </div>
             </div>
+
         </form>
     );
 };
