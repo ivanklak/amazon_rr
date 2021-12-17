@@ -31,7 +31,7 @@ const Orders = () => {
         }
     }, [user]);
 
-    return orders && (
+    return orders.length !== 0 ? (
         <div className={styles.ordersContainer}>
             <div className={styles.yourOrders}>
                 <div className={styles.yourOrdersTittle}>
@@ -55,6 +55,19 @@ const Orders = () => {
             </div>
         </div>
 
+    ) : (
+        <div className={styles.ordersContainer}>
+            <div className={styles.yourOrders}>
+                <div className={styles.yourOrdersTittle}>
+                    <h1>No orders yet :(</h1>
+                </div>
+            </div>
+            <div className={styles.rightSideBlock}>
+                <div className={styles.sponsoredProducts}>
+                    <span>Sponsored Products related to items in your cart</span>
+                </div>
+            </div>
+        </div>
     );
 };
 
