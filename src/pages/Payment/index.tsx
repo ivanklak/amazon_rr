@@ -31,7 +31,11 @@ const Payment: FC = () => {
         const totalFixed = Number((total * 100).toFixed(0));
 
         const getClientSecret = async () => {
+
+            console.log("getSecret");
             const response = await paymentAPI.getClientSecret(totalFixed);
+
+            console.log(response);
 
             setClientSecret(response.data.clientSecret);
         };

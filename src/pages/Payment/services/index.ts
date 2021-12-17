@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
-    baseURL: 'http://localhost:5001/amzn-1-294eb/us-central1/api'
+    baseURL: 'https://us-central1-amzn-1-294eb.cloudfunctions.net/api'
 });
 
 export const paymentAPI = {
