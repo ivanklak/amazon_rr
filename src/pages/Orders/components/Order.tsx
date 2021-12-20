@@ -1,5 +1,6 @@
 import React, {FC} from "react";
 import moment from "moment";
+import {NavLink} from "react-router-dom";
 
 import {IOrder} from "../types";
 import {fixedPrice} from "../../../app/helpers";
@@ -22,9 +23,11 @@ const Order: FC<IOrderProps> = ({order}) => {
             {order.data.basket?.map(item => (
                 <div key={item.id} className={styles.item}>
                     <div>
-                        <div className={styles.itemImgField}>
-                            <img src={item.image} alt={item.image}/>
-                        </div>
+                        <NavLink to={`/product/${item.id}`}>
+                            <div className={styles.itemImgField}>
+                                <img src={item.image} alt={item.image}/>
+                            </div>
+                        </NavLink>
                         <div className={styles.itemDescription}>
                             <h4>{item.title}</h4>
                             <div className={styles.itemRating}>
