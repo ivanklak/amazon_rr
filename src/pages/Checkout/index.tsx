@@ -18,8 +18,6 @@ const Checkout: FC = () => {
     const {basket, user} = useSelector(selector);
     const [total, setTotal] = useState(0);
 
-    console.log(total);
-
     const subtotalPrice = () => {
         let total = 0;
 
