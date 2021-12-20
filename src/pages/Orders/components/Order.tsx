@@ -3,6 +3,7 @@ import moment from "moment";
 
 import {IOrder} from "../types";
 import {fixedPrice} from "../../../app/helpers";
+import Rating from "../../../app/components/Rating";
 
 import styles from "./styles.module.css";
 
@@ -15,20 +16,28 @@ const Order: FC<IOrderProps> = ({order}) => {
 
     return (
         <div className={styles.orderContainer}>
-            <span>{moment.unix(order.data.created as number).format("MMMM Do YYYY, h:mma")}</span>
-            <p>
-                <span>Order id: </span>
-                <span>{order.id}</span>
-            </p>
+            <div className={styles.orderDate}>
+                <span>{moment.unix(order.data.created as number).format("MMMM Do YYYY, h:mma")}</span>
+            </div>
             {order.data.basket?.map(item => (
-                <div key={item.id}>
-                    <div className={styles.orderItem}>
-                        <div>
-                            {item.title} -
+                <div key={item.id} className={styles.item}>
+                    <div>
+                        <div className={styles.itemImgField}>
+                            <img src={item.image} alt={item.image}/>
                         </div>
-                        <div>
-                            ${fixedPrice(Number(item.price))}
+                        <div className={styles.itemDescription}>
+                            <h4>{item.title}</h4>
+                            <div className={styles.itemRating}>
+                                <Rating rate={item.rating.rate} size={15}/>
+                                <div>({item.rating.count} ratings)</div>
+                            </div>
+                            <div className={styles.itemOptions}>
+                                <span>Qty: {item.count}</span>
+                            </div>
                         </div>
+                    </div>
+                    <div className={styles.itemPrice}>
+                        <span>${fixedPrice(Number(item.price))}</span>
                     </div>
                 </div>
             ))}
