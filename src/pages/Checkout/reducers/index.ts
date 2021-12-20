@@ -2,11 +2,13 @@ import {CheckoutAction, CheckoutActionTypes} from "../actions";
 import {IProduct} from "../../Homepage/types";
 
 interface ICheckoutState {
-    basket: Array<IProduct>
+    basket: Array<IProduct>,
+    total: number
 }
 
 export const initialState: ICheckoutState = {
-    basket: []
+    basket: [],
+    total: 0,
 };
 
 const checkoutReducer = (state = initialState, action: CheckoutAction): ICheckoutState => {
@@ -28,13 +30,23 @@ const checkoutReducer = (state = initialState, action: CheckoutAction): ICheckou
 
             if (index >= 0) {
                 newBasket.splice(index, 1);
-            } else {
-                console.log('Cant remove');
             }
 
             return {
                 ...state,
                 basket: newBasket
+            };
+        }
+        case CheckoutActionTypes.SET_EMPTY_BASKET: {
+            return {
+                ...state,
+                basket: []
+            };
+        }
+        case CheckoutActionTypes.SET_TOTAL: {
+            return {
+                ...state,
+                total: action.payload
             };
         }
         default:

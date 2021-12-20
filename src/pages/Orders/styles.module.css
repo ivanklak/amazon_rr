@@ -1,0 +1,50 @@
+.ordersContainer {
+    display: flex;
+    margin: 20px;
+}
+
+.yourOrders {
+    margin: 10px 20px 0 0;
+    width: 100%;
+    background-color: white;
+    padding: 20px;
+}
+
+.yourOrdersTittle > div {
+    border-bottom: 1px solid #eee;
+}
+
+.yourOrdersTittle h1 {
+    margin: 0;
+    font-weight: 500;
+}
+
+.tittleSpan {
+    text-align: right;
+    font-size: 13px;
+    font-weight: 500;
+    color: #747474;
+    margin: 0 0 3px 0;
+}
+
+.itemsList {
+    margin: 12px 0;
+}
+
+
+.rightSideBlock {
+    min-width: 300px;
+    float: right;
+}
+
+.sponsoredProducts {
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    padding: 15px 20px;
+}
+
+.sponsoredProducts > span {
+    font-size: 14px;
+    font-weight: bold;
+}

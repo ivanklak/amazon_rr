@@ -1,15 +1,14 @@
-import React, {FC} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useHistory} from "react-router-dom";
 import {CartDash} from "@styled-icons/bootstrap/CartDash";
 import {Cup} from '@styled-icons/entypo/Cup';
 
-// import {IProduct} from "../Homepage/types";
 import {fixedPrice} from "../../app/helpers";
 import Rating from "../../app/components/Rating";
 
 import selector from "./selectors";
-import {removeFromBasket} from "./thunks";
+import {removeFromBasket, setBasketTotal} from "./thunks";
 
 import styles from './styles.module.css';
 
@@ -17,36 +16,25 @@ const Checkout: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const {basket, user} = useSelector(selector);
+    const [total, setTotal] = useState(0);
 
-    // const sameIds = (arr: Array<IProduct>) => {
-    //
-    //     for (let i = 0; i < arr.length; i++) {
-    //         const currentItem = arr[i];
-    //
-    //         let count = 0;
-    //         for (let j = 0; j < arr.length; j++) {
-    //             if (currentItem.id === arr[j].id) {
-    //                 count++;
-    //             }
-    //         }
-    //         currentItem.count = count;
-    //     }
-    //     const resArr: Array<any> = [];
-    //
-    //     arr.filter(item => {
-    //         const i = resArr.findIndex(x => (x.id == item.id));
-    //
-    //         if (i <= -1) {
-    //             resArr.push(item);
-    //         }
-    //
-    //         return null;
-    //     });
-    //
-    //     return resArr;
-    // };
-    //
-    // const uniqueBasket: Array<IProduct> = sameIds(basket);
+    const subtotalPrice = () => {
+        let total = 0;
+
+        for (let i = 0; i < basket.length; i++) {
+            const currentItem = basket[i];
+            const count = currentItem.count;
+
+            total += (Number(currentItem.price) * (count as number));
+        }
+
+        setTotal(total);
+    };
+
+    useEffect(() => {
+        subtotalPrice();
+    }, [basket]);
+
     const onSignInClick = () => {
         history.push('/login');
     };
@@ -62,21 +50,14 @@ const Checkout: FC = () => {
         return total;
     };
 
-    const subtotalPrice = () => {
-        let total = 0;
-
-        for (let i = 0; i < basket.length; i++) {
-            const currentItem = basket[i];
-            const count = currentItem.count;
-
-            total += (Number(currentItem.price) * (count as number));
-        }
-
-        return total.toFixed(2);
-    };
-
     const onRemoveClick = (id: number) => {
         dispatch(removeFromBasket(id));
+    };
+
+    const onProceedClick = () => {
+        dispatch(setBasketTotal(total));
+
+        history.push('/payment');
     };
 
     return basket.length !== 0 ? (
@@ -119,7 +100,7 @@ const Checkout: FC = () => {
                 </div>
                 <div className={styles.fullBasketSubtotal}>
                     <span>Subtotal ({subtotalItems()} {subtotalItems() > 1 ? "items" : "item"}):</span>
-                    <span>${subtotalPrice()}</span>
+                    <span>${fixedPrice(total)}</span>
                 </div>
 
             </div>
@@ -127,9 +108,9 @@ const Checkout: FC = () => {
                 <div className={styles.subtotal}>
                     <div>
                         <span>Subtotal ({subtotalItems()} {subtotalItems() > 1 ? "items" : "item"}):</span>
-                        <span>${subtotalPrice()}</span>
+                        <span>${fixedPrice(total)}</span>
                     </div>
-                    <button>Proceed to checkout</button>
+                    <button onClick={onProceedClick}>Proceed to checkout</button>
                 </div>
                 <div className={styles.sponsoredProducts}>
                     <span>Sponsored Products related to items in your cart</span>
@@ -178,3 +159,33 @@ const Checkout: FC = () => {
 };
 
 export default Checkout;
+
+// const sameIds = (arr: Array<IProduct>) => {
+//
+//     for (let i = 0; i < arr.length; i++) {
+//         const currentItem = arr[i];
+//
+//         let count = 0;
+//         for (let j = 0; j < arr.length; j++) {
+//             if (currentItem.id === arr[j].id) {
+//                 count++;
+//             }
+//         }
+//         currentItem.count = count;
+//     }
+//     const resArr: Array<any> = [];
+//
+//     arr.filter(item => {
+//         const i = resArr.findIndex(x => (x.id == item.id));
+//
+//         if (i <= -1) {
+//             resArr.push(item);
+//         }
+//
+//         return null;
+//     });
+//
+//     return resArr;
+// };
+//
+// const uniqueBasket: Array<IProduct> = sameIds(basket);

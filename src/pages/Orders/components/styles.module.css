@@ -1,0 +1,65 @@
+.orderContainer {
+    border: 1px solid #eeeeee;
+    margin: 0 0 10px 0;
+    padding: 10px;
+}
+
+.orderDate {
+    font-size: 12px;
+    font-weight: 500;
+    color: #282c34;
+}
+
+.itemImgField {
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+}
+
+.itemImgField > img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+
+.item {
+    display: flex;
+    margin: 12px 0;
+    border-bottom: 1px solid #eee;
+    padding: 0 0 12px 0;
+}
+
+.item > div:first-child {
+    display: flex;
+    margin-right: 2%;
+    width: 100%;
+}
+
+.itemDescription {
+    padding: 0 0 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.itemDescription > h4 {
+    margin: 5px 0;
+}
+
+.itemRating {
+    display: flex;
+    align-items: flex-end;
+    font-size: 13px;
+}
+
+.itemPrice {
+    width: 14.948%;
+    text-align: right;
+    justify-content: flex-end;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.itemPrice > span {
+    line-height: 25px;
+}

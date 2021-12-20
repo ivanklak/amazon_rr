@@ -53,6 +53,10 @@ const Header = () => {
         history.push('/checkout');
     };
 
+    const onOrdersClick = () => {
+        history.push('/orders');
+    };
+
     return (
         <header className={styles.header}>
             <div className={styles.headerTop}>
@@ -84,7 +88,7 @@ const Header = () => {
                         user={user}
                     />
                     <div className={styles.rightSideItem}>
-                        <div className={styles.returns}>
+                        <div className={styles.returns} onClick={onOrdersClick}>
                             <p>Returns</p>
                             <p>& Orders</p>
                         </div>
