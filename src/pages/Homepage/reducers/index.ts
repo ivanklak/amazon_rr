@@ -11,7 +11,7 @@ interface IProductFeedState {
 export const initialState: IProductFeedState = {
     products: [],
     categories: [],
-    isLoading: false,
+    isLoading: true,
     error: null
 };
 

@@ -7,15 +7,18 @@
     flex-direction: column;
     position: relative;
 }
+
 .title {
     background-color: white;
     padding: 0 20px 25px 20px;
     letter-spacing: 0.02em;
 }
+
 .title p {
     font-size: 20px;
     font-weight: bold;
 }
+
 .btnSignIn {
     display: flex;
     justify-content: center;
@@ -28,9 +31,11 @@
     letter-spacing: 0.0002em;
     cursor: pointer;
 }
+
 .btnSignIn:hover {
     background-color: #eec105;
 }
+
 .advertisement {
     margin: 20px 20px 0 20px;
     height: 100%;
@@ -41,6 +46,7 @@
     text-align: center;
     cursor: pointer;
 }
+
 .advertisement p {
     padding: 20px;
 }
