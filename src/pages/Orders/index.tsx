@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 
 import {db} from "../../firebase";
+import SkeletonOrder from "../../app/components/Skeletons/SkeletonOrder";
 
 import selector from "./selectors";
 import Order from "./components/Order";
@@ -12,6 +13,7 @@ import styles from './styles.module.css';
 const Orders = () => {
     const {user} = useSelector(selector);
     const [orders, setOrders] = useState<Array<IOrder>>([]);
+    const [fetching, setFetching] = useState(true);
 
     useEffect(() => {
         if (user) {
@@ -26,41 +28,36 @@ const Orders = () => {
                         data: doc.data()
                     })))
                 ));
+            setFetching(false);
         } else {
             setOrders([]);
+            setFetching(false);
         }
     }, [user]);
 
-    return orders.length !== 0 ? (
+    return (
         <div className={styles.ordersContainer}>
             <div className={styles.yourOrders}>
                 <div className={styles.yourOrdersTittle}>
-                    <div>
-                        <h1>Your orders</h1>
-                        <div className={styles.tittleSpan}>
-                            <span>Price</span>
+                    {orders.length !== 0
+                        ? <div>
+                            <h1>Your orders</h1>
+                            <div className={styles.tittleSpan}>
+                                <span>Price</span>
+                            </div>
                         </div>
+                        :
+                        <h1>No orders yet :(</h1>
+                    }
+                </div>
+                {fetching
+                    ? [1, 2, 3, 4].map((i) => <SkeletonOrder key={i}/>)
+                    : <div className={styles.itemsList}>
+                        {orders.map((order) => (
+                            <Order key={order.id} order={order}/>
+                        ))}
                     </div>
-                </div>
-                <div className={styles.itemsList}>
-                    {orders.map((order) => (
-                        <Order key={order.id} order={order}/>
-                    ))}
-                </div>
-            </div>
-            <div className={styles.rightSideBlock}>
-                <div className={styles.sponsoredProducts}>
-                    <span>Sponsored Products related to items in your cart</span>
-                </div>
-            </div>
-        </div>
-
-    ) : (
-        <div className={styles.ordersContainer}>
-            <div className={styles.yourOrders}>
-                <div className={styles.yourOrdersTittle}>
-                    <h1>No orders yet :(</h1>
-                </div>
+                }
             </div>
             <div className={styles.rightSideBlock}>
                 <div className={styles.sponsoredProducts}>

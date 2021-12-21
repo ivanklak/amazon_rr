@@ -27,6 +27,11 @@
     margin: 0 0 20px 0;
 }
 
+.skeleton.orderAvatar {
+    width: 100px;
+    height: 100px;
+}
+
 .skeleton-wrapper {
     display: flex;
     flex-direction: column;
@@ -45,6 +50,24 @@
 
 .skeleton-product > div:first-child {
     width: 100%;
+}
+
+.skeletonOrder-wrapper {
+    background-color: #ffffff;
+    margin: 0 10px;
+    padding: 10px 0;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.skeleton-order {
+    display: flex;
+}
+
+.skeleton-order > div:last-child {
+    margin: 10px 20px;
 }
 
 /* Animation */
