@@ -15,3 +15,8 @@ export const getSingleProduct = (id: number): IThunkResult<Promise<void>, Single
             dispatch(SingleProductActions.getSingleProductFailure(result));
         }
     };
+
+export const removeSingleProduct = (): IThunkResult<void, SingleProductAction> =>
+    dispatch => {
+        dispatch(SingleProductActions.removeProductFromPage());
+    };

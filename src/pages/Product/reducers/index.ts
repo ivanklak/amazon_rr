@@ -35,6 +35,12 @@ const singleProductReducer = (state = initialState, action: SingleProductAction)
                 isLoading: false
             };
         }
+        case SingleProductActionTypes.REMOVE_PRODUCT_FROM_PAGE: {
+            return {
+                ...state,
+                product: null
+            };
+        }
         default:
             return state;
     }

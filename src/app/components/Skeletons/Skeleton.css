@@ -66,6 +66,19 @@
     display: flex;
 }
 
+.skeleton-productId-wrapper {
+    background-color: #ffffff;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton-productId {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
+    gap: 10px;
+}
+
 .skeleton-order > div:last-child {
     margin: 10px 20px;
 }

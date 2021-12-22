@@ -196,3 +196,7 @@
 .return > span:last-child:hover {
     color: #B12704;
 }
+
+.skeleton {
+    margin-top: 78px;
+}

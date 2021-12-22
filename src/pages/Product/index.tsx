@@ -10,9 +10,11 @@ import {fixedPrice} from "../../app/helpers";
 
 import Rating from "../../app/components/Rating";
 
+import SkeletonProductById from "../../app/components/Skeletons/SkeletonProductById";
+
 import selector from "./selector";
 import DropDownCard from "./components/DropDownCard";
-import {getSingleProduct} from "./thunks";
+import {getSingleProduct, removeSingleProduct} from "./thunks";
 
 import styles from './styles.module.css';
 
@@ -37,6 +39,10 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
         const id = Number(props.match.params.id);
 
         dispatch(getSingleProduct(id));
+
+        return () => {
+            dispatch(removeSingleProduct());
+        };
     }, []);
 
     useEffect(() => {
@@ -72,7 +78,7 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
         setNewProduct({...product, count: num});
     };
 
-    return product && (
+    return product ? (
         <div>
             <WideAdv/>
             <div className={styles.productPage}>
@@ -152,7 +158,10 @@ const Product: FC<RouteComponentProps<IProductProps>> = props => {
                 </div>
             </div>
         </div>
-
+    ) : (
+        <div className={styles.skeleton}>
+            <SkeletonProductById/>
+        </div>
     );
 };
 
