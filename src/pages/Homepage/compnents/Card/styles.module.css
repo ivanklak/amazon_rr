@@ -4,17 +4,20 @@
     margin: 10px 20px;
     height: 260px;
 }
+
 .card h3 {
     color: #434343;
     padding: 0 20px;
     margin: 20px 0 0 0;
 }
+
 .cardItems {
     height: 200px;
     margin: 0 20px;
     overflow: auto;
     white-space: nowrap;
 }
+
 .cardItem {
     display: inline-block;
     height: 150px;
@@ -22,9 +25,53 @@
     text-align: center;
     padding: 14px;
 }
+
 .cardImage {
     object-fit: contain;
     width: 100%;
     height: 100%;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1410px) {
+    .card {
+        width: 1042px;
+    }
+}
+
+@media screen and (max-width: 1060px) {
+    .card {
+        width: 888px;
+        height: 360px;
+    }
+
+    .cardItems {
+        height: 300px;
+    }
+
+    .cardItem {
+        height: 250px;
+        width: 250px;
+    }
+}
+
+@media screen and (max-width: 905px) {
+    .card {
+        width: 688px;
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: 100%;
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .card {
+        width: 100%;
+        height: 400px;
+    }
 }

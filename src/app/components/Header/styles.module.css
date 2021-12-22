@@ -63,7 +63,7 @@
 
 .input {
     width: 100%;
-    min-width: 220px;
+    min-width: 120px;
     padding: 12px;
     border: none;
     border-radius: 0;
@@ -337,5 +337,11 @@
 }
 
 @media screen and (max-width: 480px) {
+    .bottomItems > div:nth-child(2n) {
+        display: none;
+    }
 
+    .logo {
+        margin: 10px 0 0 0;
+    }
 }

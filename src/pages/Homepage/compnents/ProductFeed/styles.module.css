@@ -29,11 +29,12 @@
     top: 230px;
 }
 
-/*@media screen and (max-width: 1410px){*/
-/*    .products {*/
-/*        top: 200px;*/
-/*    }*/
-/*}*/
+@media screen and (max-width: 480px) {
+    .products {
+        top: 100px;
+    }
+}
+
 /*@media screen and (max-width: 1060px){*/
 /*    .products {*/
 /*        top: 180px;*/

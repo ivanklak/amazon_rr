@@ -40,3 +40,17 @@
     padding: 20px 20px 20px 20px;
     font-weight: 500;
 }
+
+@media screen and (max-width: 1060px) {
+    .deals {
+        height: 500px;
+        width: 434px;
+    }
+}
+
+@media screen and (max-width: 905px) {
+    .deals {
+        height: 400px;
+        width: 334px;
+    }
+}
